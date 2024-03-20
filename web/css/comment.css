@@ -1,0 +1,75 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : Mar 12, 2024, 9:32:48 PM
+    Author     : admin
+*/
+/* Reset CSS */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Styling for container */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Styling for comment section */
+.comment-top {
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.commented-section {
+    border-radius: 5px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    margin-top: 15px;
+}
+
+/* Styling for profile image */
+.profile-image img {
+    border-radius: 50%;
+}
+
+/* Styling for voting icons */
+.voting-icons {
+    align-items: center;
+}
+
+.voting-icons i {
+    cursor: pointer;
+}
+
+/* Styling for reply section */
+.reply-section {
+    display: flex;
+    align-items: center;
+    margin-top: 5px;
+}
+
+.reply-section h6 {
+    margin-left: 5px;
+    cursor: pointer;
+}
+
+/* Styling for comment input section */
+.add-comment-section {
+    align-items: center;
+}
+
+.add-comment-section input {
+    flex-grow: 1;
+    border-radius: 20px;
+}
+
+.add-comment-section button {
+    border-radius: 20px;
+    margin-left: 10px;
+}

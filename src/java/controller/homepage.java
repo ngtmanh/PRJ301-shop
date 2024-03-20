@@ -1,0 +1,125 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
+ */
+
+package controller;
+
+import dal.DBcontext;
+import java.io.IOException;
+import java.io.PrintWriter;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import model.Product;
+
+/**
+ *
+ * @author admin
+ */
+public class homepage extends HttpServlet {
+   
+    /** 
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+    throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
+        try (PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet homepage</title>");  
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet homepage at " + request.getContextPath () + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
+        }
+    } 
+
+    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+    /** 
+     * Handles the HTTP <code>GET</code> method.
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+    throws ServletException, IOException {
+        try {
+            DBcontext db = new DBcontext();
+            ArrayList<Product> list = db.get_list_product();
+            ArrayList<Product> list_rs = new ArrayList<>();
+            String categoryID = request.getParameter("categoryID");
+            if (request.getParameter("categoryID") != null) {
+                for (Product p : list) {
+                    if (p.getCategoryID() == Integer.parseInt(categoryID)) {
+                        list_rs.add(p);
+                    }
+                }
+                request.setAttribute("list_rs", list_rs);
+            } else {
+                request.setAttribute("list_rs", list);
+            }
+            request.getRequestDispatcher("homepage.jsp").forward(request, response);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(homepage.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(homepage.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    } 
+
+    /** 
+     * Handles the HTTP <code>POST</code> method.
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+    throws ServletException, IOException {
+        try {
+            DBcontext db = new DBcontext();
+            ArrayList<Product> list = db.get_list_product();
+            ArrayList<Product> list_rs = new ArrayList<>();
+            String categoriID = request.getParameter("categoryID");
+            for (Product p : list) {
+                if (p.getCategoryID()==Integer.parseInt(categoriID)) {
+                    list_rs.add(p);
+                }
+            }
+            request.setAttribute("list_rs", list_rs);
+            request.getRequestDispatcher("shop.jsp").forward(request, response);           
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(homepage.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(homepage.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
+    }
+
+    /** 
+     * Returns a short description of the servlet.
+     * @return a String containing servlet description
+     */
+    @Override
+    public String getServletInfo() {
+        return "Short description";
+    }// </editor-fold>
+
+}
